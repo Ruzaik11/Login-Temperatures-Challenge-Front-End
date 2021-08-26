@@ -9,12 +9,12 @@ const Weather = (props) => {
   const BASE_URL = process.env.REACT_APP_BASE_URL;
   const [loader, setLoader] = useState(false);
   const loggedUser = JSON.parse(localStorage.getItem("logged-user"));
-  const [count, setCount] = useState(0);
-  const [weather, setWeather] = useState([]);
+  const [melbourneWeather, setMelbourneWeather] = useState([]);
+  const [newYorkWeather, setNewYorkWeather] = useState([]);
 
   useEffect(() => {
     getMyWeatherHistory();
-  }, [count]);
+  }, []);
 
   const getMyWeatherHistory = () => {
     setLoader(true);
@@ -29,7 +29,8 @@ const Weather = (props) => {
       .then((response) => {
         console.log("Fetched weather Api");
         console.log(response.data.data);
-        setWeather(response.data.data);
+        setNewYorkWeather(response.data.data.New_York);
+        setMelbourneWeather(response.data.data.Melbourne);
         setLoader(false);
       })
       .catch((error) => {
@@ -51,7 +52,8 @@ const Weather = (props) => {
       .then((response) => {
         console.log("Fetched weather Api");
         console.log(response.data.data);
-        setWeather(response.data.data);
+        setNewYorkWeather(response.data.data.New_York);
+        setMelbourneWeather(response.data.data.Melbourne);
         setLoader(false);
       })
       .catch((error) => {
@@ -87,9 +89,9 @@ const Weather = (props) => {
                 <Spinner animation="border" />
               </div>
             ) : (
-              weather.map((item) => {
+              melbourneWeather.map((item) => {
                 return (
-                    (item.city=='Melbourne')?(''):(
+                   
                         <React.Fragment>
                         <div className="col-md-6">
                           <p> { Moment(item.date).format('LLLL') } </p>
@@ -101,7 +103,7 @@ const Weather = (props) => {
                           <p>{item.farenheit} °F</p>
                         </div>
                       </React.Fragment>
-                    )
+                 
                 );
               })
             )}
@@ -117,9 +119,9 @@ const Weather = (props) => {
                 <Spinner animation="border" />
               </div>
             ) : (
-              weather.map((item) => {
+              newYorkWeather.map((item) => {
                 return (
-                    (item.city=='New York')?(''):(
+                    
                         <React.Fragment>
                         <div className="col-md-6">
                           <p> { Moment(item.date).format('LLLL') } </p>
@@ -131,7 +133,7 @@ const Weather = (props) => {
                           <p>{item.farenheit} °F</p>
                         </div>
                       </React.Fragment>
-                    )
+                 
                 );
               })
             )}

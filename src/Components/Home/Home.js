@@ -1,6 +1,6 @@
 import  './Home.css';
 import React, { useState ,useEffect} from 'react';
-import Weather from '../weather/Weather';
+import Weather from '../Weather/Weather';
 
 const Home = (props) => {
 
